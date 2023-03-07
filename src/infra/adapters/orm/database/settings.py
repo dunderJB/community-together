@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # create an engine to postgres
-engine = create_engine('postgresql://usr:pass@localhost:5432/community_database')
+engine = create_engine('postgresql://usr:pass@localhost:5432/community_database', pool_size=30)
 # create a configured "Session" class
 Session = sessionmaker(bind=engine)
 
