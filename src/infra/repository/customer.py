@@ -37,7 +37,7 @@ async def delete_customer_repo(id_: int):
 async def update_customer_repo(id_: int, customer: CustomerRequest):
     with Session() as session:
         try:
-            await get_customer_repo(id_=id_)
+            await get_customer_by_id_repo(id_=id_)
 
             session.execute(update(Customer).where(Customer.id == id_).values({
                 Customer.username: customer.username,
