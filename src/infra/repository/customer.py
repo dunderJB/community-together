@@ -51,7 +51,7 @@ async def update_customer_repo(id_: int, customer: CustomerRequest):
             raise
 
 
-async def get_customer_repo(id_: int):
+async def get_customer_by_id_repo(id_: int):
     with Session() as session:
         try:
             statement = session.execute(select(Customer).filter_by(id=id_))

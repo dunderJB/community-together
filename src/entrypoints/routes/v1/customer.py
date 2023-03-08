@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
 from src.domain.models.customer import CustomerRequest
-from src.services.customer import create_customer, delete_customer, get_customer, update_customer
+from src.services.customer import create_customer, delete_customer, get_customer_by_id, update_customer
 
 router = APIRouter()
 
@@ -14,7 +14,7 @@ async def _create_customer(customer: CustomerRequest) -> JSONResponse:
 
 @router.get('/{id_}')
 async def _get_customer(id_: int) -> JSONResponse:
-    return await get_customer(id_=id_)
+    return await get_customer_by_id(id_=id_)
 
 
 @router.delete('/{id_}')
