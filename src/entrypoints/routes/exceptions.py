@@ -1,8 +1,14 @@
 from http import HTTPStatus
+import re
 from fastapi import FastAPI
 from sqlalchemy.exc import IntegrityError, OperationalError, NoResultFound
 from starlette.requests import Request
 from starlette.responses import JSONResponse
+
+
+def get_field_error(field_error: str):
+    field = re.search(r'\((.*?)\)', field_error)
+    return field.group(0)
 
 
 class ExceptionHandler:
@@ -15,12 +21,17 @@ class ExceptionHandler:
     @staticmethod
     async def integrity_error_handler(_: Request, exc: IntegrityError):
         error_code = exc.orig.pgcode
-
+        field_error = get_field_error(exc.orig.diag.message_detail)
         if error_code == "23505":
             return JSONResponse({
-                "detail": "Email em uso.",
+                "detail":  f'{field_error} em uso.',
                 "status_code": HTTPStatus.CONFLICT
             }, status_code=HTTPStatus.CONFLICT)
+
+        return JSONResponse({
+            "detail": "Erro ao inserir dados.",
+            "status_code": HTTPStatus.INTERNAL_SERVER_ERROR
+        }, status_code=HTTPStatus.INTERNAL_SERVER_ERROR)
 
     @staticmethod
     async def operational_error_handler(_: Request, __: OperationalError):
@@ -42,3 +53,4 @@ class ExceptionHandler:
             "detail": "Erro interno do servidor.",
             "status_code": HTTPStatus.NOT_FOUND
         }, status_code=HTTPStatus.INTERNAL_SERVER_ERROR)
+

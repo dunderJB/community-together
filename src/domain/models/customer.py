@@ -1,13 +1,13 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class CustomerRequest(BaseModel):
-    username: str
-    email: str
+    username: str = Field(alias='username')
+    email: str = Field(alias='email')
 
 
 class CustomerResponse(BaseModel):
-    id: int
-    username: str
-    email: str
+    id: int = Field(alias='id')
+    username: str = Field(alias='username')
+    email: str = Field(alias='email')
 

@@ -13,4 +13,3 @@ def test_request_health_check_is_working():
 
     assert response.status_code == 200
 
-
