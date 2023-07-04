@@ -1,0 +1,6 @@
+[report]
+show_missing = true
+skip_empty = true
+[paths]
+source =
+    C:\Users\Administrator\PycharmProjects\community-together\src
