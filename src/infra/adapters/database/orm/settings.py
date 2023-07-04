@@ -5,4 +5,3 @@ from sqlalchemy.orm import sessionmaker
 
 engine = create_engine('postgresql://usr:pass@localhost:5432/community_database', pool_size=30)
 Session = sessionmaker(bind=engine)
-Base = declarative_base()
